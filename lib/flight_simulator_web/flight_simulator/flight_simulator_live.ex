@@ -89,7 +89,6 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
   end
 
   def handle_event("control_input", key, socket) do
-    IO.inspect(key)
     {:noreply, socket}
   end
 

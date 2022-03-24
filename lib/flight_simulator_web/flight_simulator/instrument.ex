@@ -17,7 +17,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def instrument(assigns) do
     ~H"""
-    <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+    <li class="col-span-1 flex flex-col text-center bg-white">
       <%= render_slot(@inner_block) %>
     </li>
     """
