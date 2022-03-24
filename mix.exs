@@ -44,7 +44,10 @@ defmodule FlightSimulator.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      # NOTE: Issue with upgrading to latest version. See:
+      # https://github.com/yltsrc/geocalc/issues/55
+      {:geocalc, "~> 0.7.2"}
     ]
   end
 
