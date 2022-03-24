@@ -16,7 +16,8 @@ config :flight_simulator, FlightSimulatorWeb.Endpoint,
   secret_key_base: "Eto/fQOrn4o+TEZCnG9+1nxsRQXaIU9WRLgflhpRRzbfVs5ApSS4KRfa7vMDYGXq",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

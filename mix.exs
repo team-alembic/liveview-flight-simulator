@@ -45,9 +45,8 @@ defmodule FlightSimulator.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      # NOTE: Issue with upgrading to latest version. See:
-      # https://github.com/yltsrc/geocalc/issues/55
-      {:geocalc, "~> 0.7.2"}
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev},
+      {:geocalc, "~> 0.8"}
     ]
   end
 
