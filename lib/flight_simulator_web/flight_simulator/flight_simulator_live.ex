@@ -3,6 +3,11 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
 
   alias FlightSimulatorWeb.Instrument
 
+  @initial_state %FlightSimulator{
+    location: %{lat: -33.964592291602244, lng: 151.18069727924058},
+    bearing: 347.0
+  }
+
   @tick 30
   @tick_seconds @tick / 1000
 
@@ -10,12 +15,7 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
   def mount(_params, _session, socket) do
     if connected?(socket), do: :timer.send_interval(@tick, self(), :tick)
 
-    sydney_airport = %FlightSimulator{
-      location: %{lat: -33.964592291602244, lng: 151.18069727924058},
-      bearing: 347.0
-    }
-
-    {:ok, assign(socket, simulator: sydney_airport)}
+    {:ok, assign(socket, simulator: @initial_state)}
   end
 
   @impl true
@@ -85,7 +85,7 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
   end
 
   def handle_event("control_input", %{"code" => "Escape"}, socket) do
-    update_simulator(@initial_simulator, socket)
+    update_simulator(@initial_state, socket)
   end
 
   def handle_event("control_input", _key, socket) do

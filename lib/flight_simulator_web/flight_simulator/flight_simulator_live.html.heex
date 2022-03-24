@@ -1,27 +1,24 @@
-<div phx-window-keydown="control_input">
-  <span
-    phx-hook="Map"
-    data-lat={@simulator.location.lat}
-    data-lng={@simulator.location.lng}
-    data-alt={@simulator.altitude}
-    data-bearing={@simulator.bearing}
-    data-pitch={@simulator.pitch_angle} />
-  <div class="box">
+<span
+  phx-hook="Map"
+  data-lat={@simulator.location.lat}
+  data-lng={@simulator.location.lng}
+  data-alt={@simulator.altitude}
+  data-bearing={@simulator.bearing}
+  data-pitch={@simulator.pitch_angle} />
+
+<ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
     <Instrument.horizon pitch_angle={@simulator.pitch_angle}
         roll_angle={@simulator.roll_angle}
         altitude={@simulator.altitude}
         speed={@simulator.speed} />
-  </div>
-  <div class="box">
+  </li>
+  <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
     <Instrument.compass bearing={@simulator.bearing} />
-  </div>
-</div>
-
-<div class="box" phx-update="ignore">
-  <div id="map"></div>
-</div>
-<div id="view" phx-update="ignore"></div>
-
-<footer class="bottom">
-  <a href="https://github.com/joshprice/groundstation#keyboard-commands">Instructions</a>
-</footer>
+  </li>
+  <li phx-update="ignore" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+    <Instrument.map />
+  </li>
+  <li id="view" phx-update="ignore" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+  </li>
+</ul>

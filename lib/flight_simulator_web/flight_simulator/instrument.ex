@@ -1,6 +1,18 @@
 defmodule FlightSimulatorWeb.Instrument do
   use Phoenix.Component
 
+  @doc """
+  Map creates an HTML element that LeafletJS can target
+  """
+  def map(assigns) do
+    ~H"""
+    <div id="map"></div>
+    """
+  end
+
+  @doc """
+  An SVG compass. Takes a @bearing as a float.
+  """
   def compass(assigns) do
     ~H"""
     <svg viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -35,6 +47,9 @@ defmodule FlightSimulatorWeb.Instrument do
     """
   end
 
+  @doc """
+  An SVG artificial horizon. Takes a @roll_angle and a @pitch_angle as floats.
+  """
   def horizon(assigns) do
     ~H"""
     <svg viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
