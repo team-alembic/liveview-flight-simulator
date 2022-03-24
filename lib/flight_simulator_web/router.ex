@@ -17,7 +17,7 @@ defmodule FlightSimulatorWeb.Router do
   scope "/", FlightSimulatorWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", FlightSimulatorLive
   end
 
   # Other scopes may use custom stacks.

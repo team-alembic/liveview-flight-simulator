@@ -1,0 +1,27 @@
+<div phx-window-keydown="control_input">
+  <span
+    phx-hook="Map"
+    data-lat={@simulator.location.lat}
+    data-lng={@simulator.location.lng}
+    data-alt={@simulator.altitude}
+    data-bearing={@simulator.bearing}
+    data-pitch={@simulator.pitch_angle} />
+  <div class="box">
+    <Instrument.horizon pitch_angle={@simulator.pitch_angle}
+        roll_angle={@simulator.roll_angle}
+        altitude={@simulator.altitude}
+        speed={@simulator.speed} />
+  </div>
+  <div class="box">
+    <Instrument.compass bearing={@simulator.bearing} />
+  </div>
+</div>
+
+<div class="box" phx-update="ignore">
+  <div id="map"></div>
+</div>
+<div id="view" phx-update="ignore"></div>
+
+<footer class="bottom">
+  <a href="https://github.com/joshprice/groundstation#keyboard-commands">Instructions</a>
+</footer>
