@@ -6,19 +6,21 @@
   data-bearing={@simulator.bearing}
   data-pitch={@simulator.pitch_angle} />
 
-<ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-  <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
-    <Instrument.horizon pitch_angle={@simulator.pitch_angle}
-        roll_angle={@simulator.roll_angle}
-        altitude={@simulator.altitude}
-        speed={@simulator.speed} />
-  </li>
-  <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+<Instrument.panel>
+  <Instrument.instrument>
+    <Instrument.horizon
+      pitch_angle={@simulator.pitch_angle}
+      roll_angle={@simulator.roll_angle}
+      altitude={@simulator.altitude}
+      speed={@simulator.speed} />
+  </Instrument.instrument>
+  <Instrument.instrument>
     <Instrument.compass bearing={@simulator.bearing} />
-  </li>
-  <li phx-update="ignore" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+  </Instrument.instrument>
+  <Instrument.instrument>
     <Instrument.map />
-  </li>
-  <li id="view" phx-update="ignore" class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
-  </li>
-</ul>
+  </Instrument.instrument>
+  <Instrument.instrument>
+    <Instrument.cockpit_view />
+  </Instrument.instrument>
+</Instrument.panel>

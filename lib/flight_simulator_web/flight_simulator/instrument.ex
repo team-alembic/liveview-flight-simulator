@@ -2,11 +2,42 @@ defmodule FlightSimulatorWeb.Instrument do
   use Phoenix.Component
 
   @doc """
+  Instrument panel
+  """
+  def panel(assigns) do
+    ~H"""
+    <ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <%= render_slot(@inner_block) %>
+    </ul>
+    """
+  end
+
+  @doc """
+  Instrument is just a placeholder for an instrument in the panel
+  """
+  def instrument(assigns) do
+    ~H"""
+    <li class="col-span-1 flex flex-col text-center bg-white rounded-lg shadow divide-y divide-gray-200">
+      <%= render_slot(@inner_block) %>
+    </li>
+    """
+  end
+
+  @doc """
   Map creates an HTML element that LeafletJS can target
   """
   def map(assigns) do
     ~H"""
-    <div id="map"></div>
+    <div id="map" phx-update="ignore"></div>
+    """
+  end
+
+  @doc """
+  Map creates an HTML element that LeafletJS can target
+  """
+  def cockpit_view(assigns) do
+    ~H"""
+    <div id="map" phx-update="ignore"></div>
     """
   end
 
@@ -19,7 +50,7 @@ defmodule FlightSimulatorWeb.Instrument do
       <text font-size="5" font-weight="bold" x="0.5" y="-43" text-anchor="middle">
         <%= Float.round(@bearing, 1) %>º
       </text>
-      <g transform={"rotate(-#{@bearing})"}>
+      <g transform={"rotate(#{-@bearing})"}>
         <circle r="40" fill="whitesmoke" />
         <circle r="38" fill="none" stroke="#aaa" stroke-width="4" stroke-dasharray="0.25 4.72" stroke-dashoffset="0" />
         <circle r="38" fill="none" stroke="#aaa" stroke-width="4" stroke-dasharray="0.50 14.395" stroke-dashoffset="0" />
@@ -71,7 +102,7 @@ defmodule FlightSimulatorWeb.Instrument do
         </radialGradient>
       </defs>
 
-      <g transform={"rotate(-#{@roll_angle})"}>
+      <g transform={"rotate(#{-@roll_angle})"}>
         <g transform={"translate(0 #{@pitch_angle})"}>
           <rect fill="url(#sky)" height="200" width="200" x="-100" y="-200" />
           <rect fill="url(#ground)" height="200" width="200" x="-100" y="0" stroke="white" stroke-width="0.25" />
