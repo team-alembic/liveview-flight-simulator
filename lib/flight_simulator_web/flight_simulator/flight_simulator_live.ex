@@ -88,7 +88,7 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
     update_simulator(@initial_state, socket)
   end
 
-  def handle_event("control_input", key, socket) do
+  def handle_event("control_input", _key, socket) do
     {:noreply, socket}
   end
 
