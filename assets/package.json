@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.13.10",
     "arcgis-js-api": "^4.15.2",
     "esri-loader": "^3.4.0",
     "leaflet": "^1.6.0"
