@@ -6,7 +6,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def panel(assigns) do
     ~H"""
-    <ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <ul phx-window-keydown="control_input" class="grid grid-cols-2 gap-6">
       <%= render_slot(@inner_block) %>
     </ul>
     """
@@ -17,8 +17,10 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def instrument(assigns) do
     ~H"""
-    <li class="col-span-1 flex flex-col text-center bg-white">
-      <%= render_slot(@inner_block) %>
+    <li {assigns_to_attributes(assigns)} class="max-w-[400px] max-h-[400px] col-span-1 flex flex-col text-center bg-white">
+      <%= if @inner_block do %>
+        <%= render_slot(@inner_block) %>
+      <% end %>
     </li>
     """
   end
@@ -28,7 +30,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def map(assigns) do
     ~H"""
-    <div id="map" phx-update="ignore"></div>
+    <div id="map" class="w-[400px] h-[400px]"></div>
     """
   end
 
@@ -37,7 +39,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def cockpit_view(assigns) do
     ~H"""
-    <div id="map" phx-update="ignore"></div>
+    <div id="view" class="w-[400px] h-[400px]" phx-update="ignore"></div>
     """
   end
 
@@ -149,10 +151,10 @@ defmodule FlightSimulatorWeb.Instrument do
       </g>
 
       <g id="metrics">
-        <text x="-45" y="45" font-size="4">Altitude (m) </text>
-        <text x="-45" y="40" font-size="6"><%= Float.round(@altitude) %></text>
-        <text x="15" y="45" font-size="4">Speed (m/s) </text>
-        <text x="15" y="40" font-size="6"><%= Float.round(@speed) %></text>
+        <text x="-45" y="45" font-size="4" stroke="#aaa" stroke-width="0.5">Altitude (m) </text>
+        <text x="-45" y="40" font-size="6" stroke="white" stroke-width="0.5"><%= Float.round(@altitude) %></text>
+        <text x="15" y="45" font-size="4" stroke="#aaa" stroke-width="0.5">Speed (m/s) </text>
+        <text x="15" y="40" font-size="6" stroke="white" stroke-width="0.5"><%= Float.round(@speed) %></text>
       </g>
     </svg>
     """

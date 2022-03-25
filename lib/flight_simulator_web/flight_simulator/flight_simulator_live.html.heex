@@ -1,4 +1,5 @@
 <span
+  id="location-data"
   phx-hook="Map"
   data-lat={@simulator.location.lat}
   data-lng={@simulator.location.lng}
@@ -17,10 +18,9 @@
   <Instrument.instrument>
     <Instrument.compass bearing={@simulator.bearing} />
   </Instrument.instrument>
-  <Instrument.instrument>
+  <Instrument.instrument phx-update="ignore">
     <Instrument.map />
   </Instrument.instrument>
-  <Instrument.instrument>
-    <Instrument.cockpit_view />
+  <Instrument.instrument id="view" phx-update="ignore">
   </Instrument.instrument>
 </Instrument.panel>

@@ -27,58 +27,60 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
 
   @impl true
   def handle_event("control_input", %{"key" => code}, socket)
-      when code in ["ArrowLeft", "KeyA"] do
+      when code in ["ArrowLeft", "a"] do
     socket.assigns.simulator
     |> FlightSimulator.roll_left()
     |> update_simulator(socket)
   end
 
   def handle_event("control_input", %{"key" => code}, socket)
-      when code in ["ArrowRight", "KeyD"] do
+      when code in ["ArrowRight", "d"] do
     socket.assigns.simulator
     |> FlightSimulator.roll_right()
     |> update_simulator(socket)
   end
 
   def handle_event("control_input", %{"key" => code}, socket)
-      when code in ["ArrowUp", "KeyW"] do
+      when code in ["ArrowUp", "w"] do
     socket.assigns.simulator
     |> FlightSimulator.pitch_down()
     |> update_simulator(socket)
   end
 
   def handle_event("control_input", %{"key" => code}, socket)
-      when code in ["ArrowDown", "KeyS"] do
+      when code in ["ArrowDown", "s"] do
     socket.assigns.simulator
     |> FlightSimulator.pitch_up()
     |> update_simulator(socket)
   end
 
-  def handle_event("control_input", %{"key" => "Minus"}, socket) do
+  def handle_event("control_input", %{"key" => code}, socket)
+      when code in ["-", "_"] do
     socket.assigns.simulator
     |> FlightSimulator.speed_down()
     |> update_simulator(socket)
   end
 
-  def handle_event("control_input", %{"key" => "Equal"}, socket) do
+  def handle_event("control_input", %{"key" => code}, socket)
+      when code in ["=", "+"] do
     socket.assigns.simulator
     |> FlightSimulator.speed_up()
     |> update_simulator(socket)
   end
 
-  def handle_event("control_input", %{"key" => "Comma"}, socket) do
+  def handle_event("control_input", %{"key" => code}, socket) when code in [",", "<"] do
     socket.assigns.simulator
     |> FlightSimulator.yaw_left()
     |> update_simulator(socket)
   end
 
-  def handle_event("control_input", %{"key" => "Period"}, socket) do
+  def handle_event("control_input", %{"key" => code}, socket) when code in [".", ">"] do
     socket.assigns.simulator
     |> FlightSimulator.yaw_right()
     |> update_simulator(socket)
   end
 
-  def handle_event("control_input", %{"key" => "Space"}, socket) do
+  def handle_event("control_input", %{"key" => " "}, socket) do
     socket.assigns.simulator
     |> FlightSimulator.reset_attitude()
     |> update_simulator(socket)
@@ -88,7 +90,8 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
     update_simulator(@initial_state, socket)
   end
 
-  def handle_event("control_input", _key, socket) do
+  def handle_event("control_input", key, socket) do
+    IO.inspect(key)
     {:noreply, socket}
   end
 
