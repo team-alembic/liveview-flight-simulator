@@ -5,6 +5,7 @@
   data-lng={@simulator.location.lng}
   data-alt={@simulator.altitude}
   data-bearing={@simulator.bearing}
+  data-roll={@simulator.roll_angle}
   data-pitch={@simulator.pitch_angle} />
 
 <Instrument.panel>
@@ -15,12 +16,31 @@
       altitude={@simulator.altitude}
       speed={@simulator.speed} />
   </Instrument.instrument>
-  <Instrument.instrument>
-    <Instrument.compass bearing={@simulator.bearing} />
-  </Instrument.instrument>
+ 
   <Instrument.instrument phx-update="ignore">
-    <Instrument.map />
+  <div style="z-index: -1000;">
+    <a-scene>
+      <a-assets>
+        <img id="rose" src="/images/compass.svg">
+      </a-assets>
+      <a-entity id="vr-rig" position="0 0 0"}>
+        <a-entity rotation="0 0 0">
+          <a-entity id="vr-camera" camera rotation="0 0 0"></a-entity>
+        </a-entity>
+      </a-entity>
+      <a-box position="-1 0.5 3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-sphere position="0 1.25 5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-cylinder position="1 0.75 3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="333" height="333" color="#7BC8A4"></a-plane>
+      <a-sky color="skyblue"></a-sky>
+      <a-grid position="0 0.1 0" rotation="-90 0 0" width="333" height="333" color="999"></a-grid>
+    </a-scene>
+  </div>
   </Instrument.instrument>
   <Instrument.instrument id="view" phx-update="ignore">
   </Instrument.instrument>
+ <Instrument.instrument>
+    <Instrument.compass bearing={@simulator.bearing} />
+  </Instrument.instrument>
+
 </Instrument.panel>

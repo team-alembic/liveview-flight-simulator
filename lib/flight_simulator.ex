@@ -13,20 +13,20 @@ defmodule FlightSimulator do
   """
 
   @pitch_delta 1.0
-  @max_pitch_angle 20.0
-  @min_pitch_angle -20.0
+  @max_pitch_angle 89.0
+  @min_pitch_angle -89.0
 
   @roll_delta 1.0
-  @max_roll_angle 50.0
-  @min_roll_angle -50.0
+  @max_roll_angle 90.0
+  @min_roll_angle -90.0
 
   @yaw_delta 1.0
 
-  @speed_delta 5.0
-  @min_speed 5.0
+  @speed_delta 0.2
+  @min_speed 2.0
   @max_speed 120.0
 
-  @min_altitude 10.0
+  @min_altitude 0.0
 
   @reset_factor 1.1
 
@@ -237,10 +237,15 @@ defmodule FlightSimulator do
   http://www.movable-type.co.uk/scripts/latlong.html#dest-point
   """
   def update_location(%{lat: lat, lng: lng}, bearing, distance) do
-    {:ok, [lat_new, lng_new]} =
-      destination_point({lat, lng}, degrees_to_radians(bearing), distance)
+    #{:ok, [lat_new, lng_new]} =
+      #destination_point({lat, lng}, degrees_to_radians(bearing), distance)
 
-    %{lat: lat_new, lng: lng_new}
+    #%{lat: lat_new, lng: lng_new}
+    theta = degrees_to_radians(bearing)
+    %{
+      lat: lat - :math.sin(theta) * distance,
+      lng: lng - :math.cos(theta) * distance
+    }
   end
 
   defp sin(a), do: :math.sin(degrees_to_radians(a))

@@ -4,8 +4,8 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
   alias FlightSimulatorWeb.Instrument
 
   @initial_state %FlightSimulator{
-    location: %{lat: -33.964592291602244, lng: 151.18069727924058},
-    bearing: 347.0
+    location: %{lat: 0, lng: 10},
+    bearing: 0.0
   }
 
   @tick 30

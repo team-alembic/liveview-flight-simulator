@@ -26,6 +26,7 @@ import { LiveSocket } from "phoenix_live_view"
 import topbar from "../vendor/topbar"
 import { mountMap, updateMap } from "./map"
 import { mountView, updateView } from "./view"
+import { mountVR, updateVR} from "./vr"
 
 function extractLocation(element) {
   return {
@@ -34,11 +35,13 @@ function extractLocation(element) {
     alt: element.getAttribute("data-alt"),
     bearing: element.getAttribute("data-bearing"),
     pitch: element.getAttribute("data-pitch"),
+    roll: element.getAttribute("data-roll")
   }
 }
 
 const mapState = {}
 const viewState = {}
+const vrState = {}
 
 let Hooks = {}
 Hooks.Map = {
@@ -46,11 +49,13 @@ Hooks.Map = {
     const location = extractLocation(this.el)
     mountMap(mapState, location)
     mountView(viewState, location)
+    mountVR(vrState, location)
   },
   updated() {
     const location = extractLocation(this.el)
     updateMap(mapState, location)
     updateView(viewState, location)
+    updateVR(vrState, location)
   },
 }
 

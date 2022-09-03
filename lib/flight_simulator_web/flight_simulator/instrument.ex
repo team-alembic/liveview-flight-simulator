@@ -6,7 +6,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def panel(assigns) do
     ~H"""
-    <ul phx-window-keydown="control_input" class="grid grid-cols-2 gap-6">
+    <ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6">
       <%= render_slot(@inner_block) %>
     </ul>
     """
