@@ -6,7 +6,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def panel(assigns) do
     ~H"""
-    <ul phx-window-keydown="control_input" class="grid grid-cols-1 gap-6">
+    <ul phx-window-keydown="control_input" class="grid w-screen h-screen place-items-center">
       <%= render_slot(@inner_block) %>
     </ul>
     """
@@ -17,7 +17,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def instrument(assigns) do
     ~H"""
-    <li {assigns_to_attributes(assigns)} class="max-w-[400px] max-h-[400px] col-span-1 flex flex-col text-center">
+    <li {assigns_to_attributes(assigns)} class="w-1/4 h-1/4">
       <%= if @inner_block do %>
         <%= render_slot(@inner_block) %>
       <% end %>
@@ -86,29 +86,8 @@ defmodule FlightSimulatorWeb.Instrument do
   def horizon(assigns) do
     ~H"""
     <svg viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="sky" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="darkblue" />
-          <stop offset="66%" stop-color="blue" />
-          <stop offset="100%" stop-color="skyblue" />
-        </linearGradient>
-        <linearGradient id="ground" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="sienna" />
-          <stop offset="80%" stop-color="darkbrown" />
-          <stop offset="100%" stop-color="black" />
-        </linearGradient>
-        <radialGradient id="circle-fade-mask" x2="0%" y2="100%">
-          <stop offset="0%" stop-color="transparent" stop-opacity="0" />
-          <stop offset="60%" stop-color="transparent" stop-opacity="0.8" />
-          <stop offset="100%" stop-color="black" stop-opacity="0.9" />
-        </radialGradient>
-      </defs>
-
       <g transform={"rotate(#{-@roll_angle})"}>
         <g transform={"translate(0 #{@pitch_angle})"}>
-          <rect fill="url(#sky)" height="200" width="200" x="-100" y="-200" />
-          <rect fill="url(#ground)" height="200" width="200" x="-100" y="0" stroke="white" stroke-width="0.25" />
-
           <g id="pitch-tape">
             <g id="pitch-labels" fill="white" font-size="3" text-anchor="middle" alignment-baseline="middle">
               <text x="-20" y="-20">20</text>
