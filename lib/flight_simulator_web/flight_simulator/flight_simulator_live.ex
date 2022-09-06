@@ -5,7 +5,8 @@ defmodule FlightSimulatorWeb.FlightSimulatorLive do
 
   @initial_state %FlightSimulator{
     location: %{lat: 0, lng: 10},
-    bearing: 0.0
+    altitude: 2.0,
+    bearing: 180.0
   }
 
   @tick 30

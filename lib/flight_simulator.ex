@@ -13,20 +13,20 @@ defmodule FlightSimulator do
   """
 
   @pitch_delta 1.0
-  @max_pitch_angle 89.0
-  @min_pitch_angle -89.0
+  @max_pitch_angle 50.0
+  @min_pitch_angle -50.0
 
   @roll_delta 1.0
-  @max_roll_angle 90.0
-  @min_roll_angle -90.0
+  @max_roll_angle 60.0
+  @min_roll_angle -60.0
 
   @yaw_delta 1.0
 
   @speed_delta 0.2
-  @min_speed 2.0
+  @min_speed 0.2
   @max_speed 120.0
 
-  @min_altitude 0.0
+  @min_altitude 1.0
 
   @reset_factor 1.1
 
@@ -75,12 +75,12 @@ defmodule FlightSimulator do
 
       iex> update(%FlightSimulator{}, 10)
       %FlightSimulator{
-        altitude: 500.0,
+        altitude: 1.0,
         pitch_angle: 0.0,
         roll_angle: 0.0,
-        speed: 50.0,
+        speed: 0.2,
         bearing: 0.0,
-        location: %{lat: 0.004496608029593652, lng: 0.0}
+        location: %{lat: 0.0, lng: 2.0}
       }
 
   """
@@ -135,15 +135,15 @@ defmodule FlightSimulator do
   ## Example
 
       iex> update_altitude(0, 0)
-      0.0
+      1.0
       iex> update_altitude(0, 1)
       1.0
       iex> update_altitude(0, -1)
-      0.0
+      1.0
       iex> update_altitude(500, 1)
       501.0
       iex> update_altitude(500, -501)
-      0.0
+      1.0
 
   """
   def update_altitude(altitude, delta) do
@@ -236,19 +236,44 @@ defmodule FlightSimulator do
   Need this for lat/lng point given distance and bearing
   http://www.movable-type.co.uk/scripts/latlong.html#dest-point
   """
-  def update_location(%{lat: lat, lng: lng}, bearing, distance) do
-    #{:ok, [lat_new, lng_new]} =
-      #destination_point({lat, lng}, degrees_to_radians(bearing), distance)
+  def update_location_great_circle(%{lat: lat, lng: lng}, bearing, distance) do
+    {:ok, [lat_new, lng_new]} =
+      destination_point({lat, lng}, degrees_to_radians(bearing), distance * 100)
 
-    #%{lat: lat_new, lng: lng_new}
-    theta = degrees_to_radians(bearing)
+    %{lat: lat_new, lng: lng_new}
+  end
+
+  @doc """
+  Calculate new location for distance (in metres) and bearing (in degrees) from current location
+
+  ## Example
+
+      iex> update_location(%{lat: 0, lng: 0}, 0, 1)
+      %{lat: 0.0, lng: 1.0}
+      iex> update_location(%{lat: 0, lng: 0}, 45, 1)
+      %{lat: sin(45), lng: cos(45)}
+      iex> update_location(%{lat: 0, lng: 0}, 90, 1)
+      %{lat: 1.0, lng: cos(90)}
+      iex> update_location(%{lat: 0, lng: 0}, 135, 1)
+      %{lat: sin(135), lng: cos(135)}
+      iex> update_location(%{lat: 0, lng: 0}, 180, 1)
+      %{lat: sin(180), lng: -1.0}
+      iex> update_location(%{lat: 0, lng: 0}, 225, 1)
+      %{lat: sin(225), lng: cos(225)}
+      iex> update_location(%{lat: 0, lng: 0}, 270, 1)
+      %{lat: -1.0, lng: cos(270)}
+      iex> update_location(%{lat: 0, lng: 0}, 315, 1)
+      %{lat: sin(315), lng: cos(315)}
+
+  """
+  def update_location(%{lat: lat, lng: lng}, bearing, distance) do
     %{
-      lat: lat - :math.sin(theta) * distance,
-      lng: lng - :math.cos(theta) * distance
+      lat: lat + sin(bearing) * distance,
+      lng: lng + cos(bearing) * distance
     }
   end
 
-  defp sin(a), do: :math.sin(degrees_to_radians(a))
-  defp cos(a), do: :math.cos(degrees_to_radians(a))
-  defp tan(a), do: :math.tan(degrees_to_radians(a))
+  def sin(a), do: :math.sin(degrees_to_radians(a))
+  def cos(a), do: :math.cos(degrees_to_radians(a))
+  def tan(a), do: :math.tan(degrees_to_radians(a))
 end
