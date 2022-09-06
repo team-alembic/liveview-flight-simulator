@@ -17,7 +17,7 @@ defmodule FlightSimulatorWeb.Instrument do
   """
   def instrument(assigns) do
     ~H"""
-    <li {assigns_to_attributes(assigns)} class="max-w-[400px] max-h-[400px] col-span-1 flex flex-col text-center bg-white">
+    <li {assigns_to_attributes(assigns)} class="max-w-[400px] max-h-[400px] col-span-1 flex flex-col text-center">
       <%= if @inner_block do %>
         <%= render_slot(@inner_block) %>
       <% end %>
@@ -53,7 +53,7 @@ defmodule FlightSimulatorWeb.Instrument do
         <%= Float.round(@bearing, 1) %>º
       </text>
       <g transform={"rotate(#{-@bearing})"}>
-        <circle r="40" fill="whitesmoke" />
+        <circle r="40" fill="none" />
         <circle r="38" fill="none" stroke="#aaa" stroke-width="4" stroke-dasharray="0.25 4.72" stroke-dashoffset="0" />
         <circle r="38" fill="none" stroke="#aaa" stroke-width="4" stroke-dasharray="0.50 14.395" stroke-dashoffset="0" />
         <circle r="37" fill="none" stroke="#666" stroke-width="6" stroke-dasharray="0.75 57.4" stroke-dashoffset="29.3" />

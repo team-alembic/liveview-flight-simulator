@@ -11,6 +11,7 @@ export function mountVR(state, location) {
   state.camera = {
     rigElement: document.getElementById("vr-rig"),
     cameraElement: document.getElementById("vr-camera"),
+    compassElement: document.getElementById("compass"),
     pos: pos,
   }
 }
@@ -18,6 +19,7 @@ export function mountVR(state, location) {
 export function updateVR(state, location) {
   let cam = state.camera.cameraElement
   let rig = state.camera.rigElement
+  let compass = state.camera.compassElement
   let pos = {
     lat: parseFloat(location.lat),
     lng: parseFloat(location.lng),
@@ -28,11 +30,8 @@ export function updateVR(state, location) {
   }
   state.pos = pos
   rig.setAttribute("position", { x: pos.lat, y: pos.alt, z: -pos.lng })
-  cam.setAttribute("rotation", {
-    x: pos.pitch,
-    y: -pos.yaw,
-    z: -pos.roll,
-  })
+  rig.setAttribute("rotation", { x: pos.pitch, y: -pos.yaw, z: -pos.roll })
+  compass.setAttribute("rotation", { x: -90, y: pos.yaw, z: 0 })
 
   // console.log(pos)
 }
