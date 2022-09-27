@@ -37,7 +37,7 @@ export function updateVR(state, location) {
   rig.setAttribute("rotation", { x: pos.pitch, y: -pos.yaw, z: -pos.roll })
   compass.setAttribute("rotation", { x: -90, y: pos.yaw, z: 0 })
   horizon.setAttribute("rotation", { x: 0, y: 0, z: pos.roll })
-  horizon.setAttribute("position", { x: 0, y: -(pos.pitch / 100), z: -0.2 })
+  horizon.setAttribute("position", { x: 0, y: -(pos.pitch / 100), z: -0.25 })
 
   // console.log(pos)
 }
