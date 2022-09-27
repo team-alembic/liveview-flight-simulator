@@ -20,25 +20,31 @@
   <div style="z-index: -1000;" phx-update="ignore">
     <a-scene>
       <a-assets>
-        <img id="img-compass" src="images/compass.svg" />
+        <img id="img-compass" src="images/compass.png" />
       </a-assets>
-      <a-entity id="vr-rig" position="0 0 0"}>
-        <a-entity id="vr-camera" camera rotation="0 0 0">
+      <a-entity environment="preset: forest; dressingAmount: 500"></a-entity>
+      <a-entity id="vr-rig"}>
+        <a-entity id="vr-camera" camera>
+          <a-entity
+            id="horizon"
+            geometry="primitive: plane; height: 0.2; width: 0.2"
+            material="src: #img-compass; transparent: true;">
+          </a-entity>
+
           <a-entity
             id="compass"
-            geometry="primitive: plane; height: 2; width: 2"
-            position="0 -0.5 -0.3"
-            rotation="-90 0 0"
-            material="src: #img-compass; transparent: true; dithering: false; shader: flat; roughness: 0;">
+            geometry="primitive: plane; height: 0.25; width: 0.25"
+            position="0 -0.1 -0.1"
+            material="src: #img-compass; transparent: true;">
           </a-entity>
         </a-entity>
       </a-entity>
       <%= for x <- 0..100//20, y <- 0..100//20 do %>
         <a-box position={"#{x} 1 #{y}"} rotation="0 0 0" scale="2 10 2" color="#4CC3D9"></a-box>
       <% end %>
-      <a-sphere position="0 0.5 0" radius="1" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="10 0.75 0" radius="1" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="333" height="333" color="#7BC8A4"></a-plane>
+      <%# <a-sphere position="0 0.5 0" radius="1" color="#EF2D5E"></a-sphere> %>
+      <%# <a-cylinder position="10 0.75 0" radius="1" height="1.5" color="#FFC65D"></a-cylinder> %>
+      <%# <a-plane position="0 0 0" rotation="-90 0 0" width="333" height="333" color="#7BC8A4"></a-plane> %>
       <%# <a-entity geometry="primitive: plane"
           material="shader: ocean; color: blue; wave-height: 1" rotation="-90 0 0"></a-entity> %>
 
